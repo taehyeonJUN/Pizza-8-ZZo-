@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -16,13 +18,61 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 	컨트롤러가 문자열을(뷰 이름) 반환한 경우, 그 문자열의 앞에 "/WEB-INF/views/"를 붙이고 뒤에 ".jsp"를 붙여서 -->
+<!-- 해당 문자열의 jsp파일 경로로 이동(forward)시키는 역할을 수행 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kr.pizza" />
+	<!-- 	kr.ac.kopo 패키지(폴더) 아래에 있는 모든 클래스들을 조사하여, -->
+<!-- 	@Component, @Comtroller, @Service, @Repository 등이 붙어있는 클래스들을 스프링(DispatcherServlet)에 자동 등록 -->
+	<context:component-scan base-package="hi.pizza.world" />
+	<!-- 	 @Controller : 웹 요청을 받았을 때 실행되는 메서드를 담고 있는 객체에 사용 -->
+<!-- 	 @Service : 서비스 계층의 객체에 사용 -->
+<!-- 	 @Repository : DAO계층의 객체에 사용 -->
 	
 	
+	<!-- ********************************************** -->
+
+
+<!-- 핸들러 인터셉터들을 등록 -->
+<!-- <interceptors> -->
+<!-- 	<interceptor> -->
+<!-- 	모든 경로에 대해서 kr.ac.kopo.LoginInterceptor 실행 -->
+<!-- 스프링에서 모든 경로 지칭시, * 은 /를 제외한 모든 문자를 의미 -->
+<!-- 스프링에서 모든 경로 지칭시, ** 은 /를 포함한 모든 문자를 의미 -->
+<!-- 	<mapping path="/**"/> -->
+	
+<!-- 	아래 두 주소에 대해서는 인터셉트를 실행하지 않기로 결정 -->
+<!-- 	<exclude-mapping path="/member/login.do"/>  -->
+<!-- 	<exclude-mapping path="/member/add.do"/> -->
+<!-- 	<beans:bean class="kr.ac.kopo.comm.LoginInterceptor"></beans:bean> -->
+<!-- 	</interceptor> -->
+<!-- </interceptors> -->
+
+<!-- 데이터베이스 연결을 담당하는 데이터소스로서 Common DBCP를 등록 -->
+<beans:bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"></beans:property>
+	<beans:property name="url" value="jdbc:oracle:thin:@database-1.c7ma6y4ooqbt.us-east-2.rds.amazonaws.com:1521:orcl"></beans:property>
+	<beans:property name="username" value="admin"></beans:property>
+	<beans:property name="password" value="a123456789"></beans:property>
+</beans:bean>
+
+
+<!-- 마이 바티스 SqlSessionFactory 객체를 생성하여 스프링에 등록 -->
+<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!--  마이바티스가 사용할 데이터 베이스 연결(커넥션)을 제공하는 데이터 소스 설정 -->
+	<beans:property name="dataSource" ref="dataSource"></beans:property>
+	<!-- 	마이바티스 설정파일 위치 -->
+	<beans:property name="configLocation" value="classpath:/batis/mybatis-config.xml"></beans:property>
+</beans:bean>
+	
+	
+	
+<!-- 	kr.ac.kopo 패키지(폴더) 아래에 존재하는 @Mapper가 존재하는 인터페이스를  찾아서 그 인터페이스의 구현체를 마이바티스 구현체를 자동 생성하여 스프링에 등록 -->
+<mybatis-spring:scan base-package="hi.pizza.world" annotation="org.apache.ibatis.annotations.Mapper"/>
+
+
 	
 </beans:beans>
