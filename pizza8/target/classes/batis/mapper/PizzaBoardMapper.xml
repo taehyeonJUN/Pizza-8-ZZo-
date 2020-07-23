@@ -13,11 +13,11 @@
 
 	<select id="selectBoardList" resultType="BoardVo">
 		SELECT BBS_ID,BBS_USER,BBS_TITLE,BBS_DATE 
-		FROM BBS;
+		FROM BBS
 	</select>
 	<select id="selectBoard" resultType="BoardVo">
 		SELECT BBS_ID,BBS_USER,BBS_TITLE,BBS_TEXT,BBS_DATE
-		FROM BBS;
+		FROM BBS
 		WHERE BBS_ID = #{bbsId}
 	</select>
 	<insert id="insertBoard" parameterType="BoardVo">
