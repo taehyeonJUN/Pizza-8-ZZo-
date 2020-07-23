@@ -27,12 +27,12 @@ public class BoardController
 		
 	// 추가 
 		
-		@RequestMapping(value = "/board/add.do",method = RequestMethod.GET)
+		@RequestMapping(value = "/board/add.do", method = RequestMethod.GET)
 		public String addform() {
 			return "board/boardAdd";
 		}
 		
-		@RequestMapping(value = "/board/add.do",method = RequestMethod.POST)
+		@RequestMapping(value = "/board/add.do", method = RequestMethod.POST)
 		public String add( BoardVo vo, HttpSession session) {
 //			MemberVo loginVo = (MemberVo)session.getAttribute("loginUser");
 //			vo.setBbsWriter(loginVo.getMemId());
@@ -45,14 +45,14 @@ public class BoardController
 		@RequestMapping(value = "/board/edit.do", method = RequestMethod.GET)
 		public String editform(int bbsId, Map modelMap) {
 			BoardVo vo = BoardService.selectBoard(bbsId);
-			modelMap.put("bbsVo", vo);
-			return "bbs/bbsEdit";
+			modelMap.put("boardVo", vo);
+			return "board/boardEdit";
 		}
 		
 		@RequestMapping(value = "/bbs/edit.do", method = RequestMethod.POST)
 		public String edit(BoardVo vo) {
 			int num = BoardService.updateBoard(vo);
-			return "redirect:/bbs/list.do";
+			return "redirect:/board/list.do";
 		}
 		
 	//삭제
@@ -60,7 +60,7 @@ public class BoardController
 		public String del(int bbsId)
 		{
 			int num = BoardService.deleteBoard(bbsId);
-			return "redirect:/bbs/list.do";
+			return "redirect:/board/list.do";
 		}
 		
 		
