@@ -21,7 +21,7 @@
 			<c:forEach var="vo" items= "${boardList}">
 				<tr>
 				<td>${vo.bbsId}</td>
-				<td><a href="${pageContext.request.contextPath}/board/edit.do?bbsId=${vo.bbsId}"><c:out value="${vo.bbsTitle}"></c:out></a></td>
+				<td><a href="${pageContext.request.contextPath}/board/viewer.do?bbsId=${vo.bbsId}"><c:out value="${vo.bbsTitle}"></c:out></a></td>
 				<td><c:out value="${vo.bbsUser}" /></td>
 				<td><fmt:formatDate value="${vo.bbsDate}" pattern= "YYYY/MM/dd HH:mm:ss" /></td>
 				</tr>

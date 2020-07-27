@@ -25,6 +25,15 @@ public class BoardController
 			return "board/boardList";
 		}
 		
+	//??
+		@RequestMapping("/board/viewer.do")
+		public String viewerform(int bbsId, Map modelMap) 
+		{
+			BoardVo vo = BoardService.selectBoard(bbsId);
+			modelMap.put("boardVo", vo);
+			return "board/boardViewer";
+		}
+		
 	// 추가 
 		
 		@RequestMapping(value = "/board/add.do", method = RequestMethod.GET)
