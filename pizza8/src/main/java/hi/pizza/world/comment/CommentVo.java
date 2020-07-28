@@ -1,6 +1,8 @@
-package hi.pizza.world.board;
+package hi.pizza.world.comment;
 
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CommentVo 
 {
@@ -8,6 +10,8 @@ public class CommentVo
 	private String rpUser;
 	private String rpText;
 	private int rpBbsid;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM HH:mm:ss", timezone="Asia/Seoul")
 	private Date rpDate;
 	
 	public int getRpId() {
