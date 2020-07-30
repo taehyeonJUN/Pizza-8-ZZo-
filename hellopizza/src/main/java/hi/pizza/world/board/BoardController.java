@@ -61,12 +61,12 @@ public class BoardController
 		}
 		
 		@RequestMapping(value = "/board/edit.do", method = RequestMethod.POST)
-		public String edit(BoardVo vo) {
-			System.out.println("**************************************");
-			System.out.println("**************************************");
-			System.out.println("**************************************");
+		public String edit(BoardVo vo, HttpSession session) {
+			MemberVo loginVo = (MemberVo)session.getAttribute("loginUser");
+			vo.setBbsUser(loginVo.getMemId());
+			
 			int num = BoardService.updateBoard(vo);
-			return "redirect:/board/list.do";
+			return "redirect:/board/viewer.do";
 		}
 		
 	//삭제

@@ -35,7 +35,7 @@
 		WHERE BBS_ID = #{bbsId}
 	</update>
 	<delete id="deleteBoard" parameterType="int">
-		DELETE FROM BBS WHERE BBS_ID = #{bbsId}
+		DELETE FROM BBS WHERE BBS_ID = #{bbsId} 
 	</delete>
 
 

@@ -44,6 +44,14 @@
 			<beans:bean class="hi.pizza.world.comm.LoginInterceptor"></beans:bean>
 			
 		</interceptor>
+		<interceptor>
+
+			<mapping path="/member/list.do"/> 
+<!-- 			"/member/login.do", "//member/add.do" 경로에 대해서는 인터셉터를 실행하지 않도록 설정 -->
+	
+			<beans:bean class="hi.pizza.world.comm.AdminInterceptor"></beans:bean>
+			
+		</interceptor>
 	</interceptors>
 	
 	<!-- 	데이터베이스 연결을 담당하는 데이터소스로서 Common DBCP를 등록   -->

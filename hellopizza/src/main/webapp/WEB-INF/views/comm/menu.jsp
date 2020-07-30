@@ -80,7 +80,7 @@
                   <li><a href="${pageContext.request.contextPath}/member/list.do">MemberList</a></li>
                   <li><a href="#">MenuList</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">blank</a></li>
+                  <li><a href="#">탈퇴</a></li>
                 </ul>
               </li>
             </ul>
